@@ -10,6 +10,7 @@ let package = Package(
         .executableTarget(
             name: "CursorUsageBar",
             path: "Sources/CursorUsageBar",
+            resources: [.copy("Resources")],
             linkerSettings: [.linkedLibrary("sqlite3")]
         )
     ]

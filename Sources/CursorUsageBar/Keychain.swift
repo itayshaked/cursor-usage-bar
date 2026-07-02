@@ -1,12 +1,15 @@
 import Foundation
 import Security
 
-/// Minimal Keychain wrapper for storing the Cursor session token securely.
+/// Minimal Keychain wrapper for storing credentials securely, keyed by account
+/// name so multiple providers (Cursor, Claude) can each have their own item.
 enum Keychain {
     private static let service = "com.local.cursorusagebar"
-    private static let account = "WorkosCursorSessionToken"
+    /// Default account preserves the original Cursor-only keychain item.
+    static let cursorAccount = "WorkosCursorSessionToken"
+    static let claudeAdminAccount = "ClaudeAdminApiKey"
 
-    static func save(_ value: String) {
+    static func save(_ value: String, account: String = cursorAccount) {
         let data = Data(value.utf8)
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
@@ -21,7 +24,7 @@ enum Keychain {
         SecItemAdd(attributes as CFDictionary, nil)
     }
 
-    static func load() -> String? {
+    static func load(account: String = cursorAccount) -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -38,7 +41,7 @@ enum Keychain {
         return value
     }
 
-    static func delete() {
+    static func delete(account: String = cursorAccount) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,

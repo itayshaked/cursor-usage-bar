@@ -17,12 +17,20 @@ ZIP_PATH="dist/${APP_NAME}.zip"
 
 echo "Building universal release binary…"
 swift build -c release --arch arm64 --arch x86_64
-BIN=".build/apple/Products/Release/${APP_NAME}"
+BUILD_DIR=".build/apple/Products/Release"
+BIN="${BUILD_DIR}/${APP_NAME}"
 
 echo "Assembling ${APP_DIR}…"
 rm -rf "dist"
 mkdir -p "${APP_DIR}/Contents/MacOS" "${APP_DIR}/Contents/Resources"
 cp "${BIN}" "${APP_DIR}/Contents/MacOS/${APP_NAME}"
+
+# SPM's generated Bundle.module accessor looks next to Bundle.main's URL,
+# which for an .app is the bundle root itself (not Contents/Resources).
+RESOURCE_BUNDLE="${BUILD_DIR}/${APP_NAME}_${APP_NAME}.bundle"
+if [ -d "${RESOURCE_BUNDLE}" ]; then
+    cp -R "${RESOURCE_BUNDLE}" "${APP_DIR}/${APP_NAME}_${APP_NAME}.bundle"
+fi
 
 cat > "${APP_DIR}/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>

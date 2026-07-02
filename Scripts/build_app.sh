@@ -18,6 +18,13 @@ mkdir -p "${APP_DIR}/Contents/Resources"
 
 cp "${BUILD_DIR}/${APP_NAME}" "${APP_DIR}/Contents/MacOS/${APP_NAME}"
 
+# SPM's generated Bundle.module accessor looks next to Bundle.main's URL, which
+# for an .app is the bundle root itself (not Contents/Resources).
+RESOURCE_BUNDLE="${BUILD_DIR}/${APP_NAME}_${APP_NAME}.bundle"
+if [ -d "${RESOURCE_BUNDLE}" ]; then
+    cp -R "${RESOURCE_BUNDLE}" "${APP_DIR}/${APP_NAME}_${APP_NAME}.bundle"
+fi
+
 cat > "${APP_DIR}/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
