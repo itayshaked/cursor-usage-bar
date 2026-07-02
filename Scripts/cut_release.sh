@@ -16,7 +16,7 @@ export DEVELOPER_ID="${DEVELOPER_ID:-Developer ID Application: Itay Shaked (J42P
 export NOTARY_PROFILE="${NOTARY_PROFILE:-CURSORBAR_NOTARY}"
 
 echo "Building + signing + notarizing ${ZIP}…"
-./Scripts/make_dist.sh
+APP_VERSION="${VERSION}" ./Scripts/make_dist.sh
 
 SHA=$(shasum -a 256 "$ZIP" | awk '{print $1}')
 

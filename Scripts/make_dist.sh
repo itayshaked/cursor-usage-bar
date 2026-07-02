@@ -14,6 +14,7 @@ cd "$(dirname "$0")/.."
 APP_NAME="CursorUsageBar"
 APP_DIR="dist/${APP_NAME}.app"
 ZIP_PATH="dist/${APP_NAME}.zip"
+APP_VERSION="${APP_VERSION:-1.0}"
 
 echo "Building universal release binary…"
 swift build -c release --arch arm64 --arch x86_64
@@ -42,7 +43,7 @@ cat > "${APP_DIR}/Contents/Info.plist" <<PLIST
     <key>CFBundleIdentifier</key><string>com.local.cursorusagebar</string>
     <key>CFBundleExecutable</key><string>${APP_NAME}</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>1.0</string>
+    <key>CFBundleShortVersionString</key><string>${APP_VERSION}</string>
     <key>CFBundleVersion</key><string>1</string>
     <key>LSMinimumSystemVersion</key><string>13.0</string>
     <key>LSUIElement</key><true/>

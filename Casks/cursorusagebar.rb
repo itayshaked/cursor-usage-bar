@@ -1,6 +1,6 @@
 cask "cursorusagebar" do
-  version "1.0"
-  sha256 "bd0e5aa6dc71c1c2a20cd4ea8773c42f7399abaf4d5e36d401e9debb1d5cc414"
+  version "1.1"
+  sha256 "c6329427b9c316fce087ef1f2e8d0c8f931571a3a944c025e112dee5b53cedf1"
 
   # Points at this repo's own GitHub Release asset. Scripts/cut_release.sh
   # tags a release, uploads the zip, and prints the version/sha256 to paste
