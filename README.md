@@ -11,6 +11,11 @@ brew tap itayshaked/agent-usage https://github.com/itayshaked/agent-usage.git
 brew install --cask agentusage
 ```
 
+If Homebrew refuses with "untrusted tap", trust it once with:
+```bash
+brew trust itayshaked/agent-usage
+```
+
 Then launch **AgentUsage** from Spotlight (or `open -a AgentUsage`). A menu
 bar icon appears, cycling between the Cursor and Claude brand marks.
 
